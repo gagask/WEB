@@ -1,5 +1,5 @@
 
 def test(environ, start_response):
-	body = [str(i + '\n').encode('ascii') for i in environ['QUERY_STRING'].split('&')]
+	body = [bytes('\r\n'.join(environ['QUERY_STRING'].split('&')), encoding="utf8")]
 	start_response('200 OK', [('Content-Type', 'text/plain'),('Content-Length', str(len(body)))])
 	return body
